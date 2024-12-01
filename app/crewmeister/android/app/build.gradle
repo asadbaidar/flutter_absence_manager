@@ -1,0 +1,141 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def appProperties = new Properties()
+def appPropertiesFile = rootProject.file('app.properties')
+if (appPropertiesFile.exists()) {
+    appPropertiesFile.withReader('UTF-8') { reader ->
+        appProperties.load(reader)
+    }
+}
+
+def appId = appProperties.getProperty('app.id')
+if (appId == null) {
+    appId = 'com.core.app'
+}
+
+def appName = appProperties.getProperty('app.name')
+if (appName == null) {
+    appName = 'App'
+}
+
+def appScheme = appProperties.getProperty('app.scheme')
+if (appScheme == null) {
+    appScheme = 'com.core.app'
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    namespace "com.core.app"
+    ndkVersion "27.0.12077973"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId appId
+        minSdkVersion 28
+        targetSdkVersion 34
+        compileSdk 34
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    signingConfigs {
+        if (System.getenv("ANDROID_KEYSTORE_PATH")) {
+            release {
+                storeFile file(System.getenv("ANDROID_KEYSTORE_PATH"))
+                keyAlias System.getenv("ANDROID_KEYSTORE_ALIAS")
+                keyPassword System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+                storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            }
+        } else {
+            release {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+
+    flavorDimensions "default"
+    productFlavors { 
+        prod {
+            dimension "default"
+            applicationIdSuffix ""
+            manifestPlaceholders = [appName: appName, appScheme: appScheme]
+        }
+        stage {
+            dimension "default"
+            applicationIdSuffix ".stage"
+            manifestPlaceholders = [appName: "[STG] $appName", appScheme: "${appScheme}.stage"]
+        }
+        qa {
+            dimension "default"
+            applicationIdSuffix ".qa"
+            manifestPlaceholders = [appName: "[QA] $appName", appScheme: "${appScheme}.qa"]
+        }
+        dev {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [appName: "[DEV] $appName", appScheme: "${appScheme}.dev"]
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt') , 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    
+}
