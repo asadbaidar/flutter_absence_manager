@@ -1,12 +1,12 @@
-# Flutter Bootstrap project
+# Crewmeister | Absence Manager
 
-Flutter bootstrap project with everything pre-setup, that you need to get started on a new project.
+Crewmeister absence manager.
 
 ## Pre-requisites
 Make sure you have following or latest flutter/dart sdk installed on your machine. If not, follow the instructions [here](https://flutter.dev/docs/get-started/install).
 
-`flutter: 2.24.0`
-`dart: 3.5.0`
+`flutter: 2.24.5`
+`dart: 3.5.4`
 
 ## Setup
 1. To setup the project, use the following commands:
