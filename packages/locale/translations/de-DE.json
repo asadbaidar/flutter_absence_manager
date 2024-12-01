@@ -1,0 +1,21 @@
+{
+  "appName": "Crewmeister",
+  "save": "Speichern",
+  "discard": "Verwerfen",
+  "saveChanges": "Änderungen speichern",
+  "saveChangesSubtitle": "Möchten Sie Ihre Änderungen speichern?",
+  "done": "Fertig",
+  "cancel": "Abbrechen",
+  "yes": "Ja",
+  "no": "Nein",
+  "next": "Weiter",
+  "apply": "Anwenden",
+  "retry": "Erneut versuchen",
+  "welcome": "Willkommen!",
+  "menu": "Menü",
+  "logOut": "Abmelden",
+  "data": "Daten",
+  "emptyMessage": "Sieht aus, als hätten Sie keine {}",
+  "employees": "Mitarbeiter",
+  "absences": "Abwesenheiten"
+}

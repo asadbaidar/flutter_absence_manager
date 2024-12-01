@@ -1,0 +1,21 @@
+{
+  "appName": "Crewmeister",
+  "save": "Save",
+  "discard": "Discard",
+  "saveChanges": "Save Changes",
+  "saveChangesSubtitle": "Do you want to save your changes?",
+  "done": "Done",
+  "cancel": "Cancel",
+  "yes": "Yes",
+  "no": "No",
+  "next": "Next",
+  "apply": "Apply",
+  "retry": "Retry",
+  "welcome": "Welcome!",
+  "menu": "Menu",
+  "logOut": "Log out",
+  "data": "Data",
+  "emptyMessage": "Looks like you have no {}",
+  "employees": "Employees",
+  "absences": "Absences"
+}
