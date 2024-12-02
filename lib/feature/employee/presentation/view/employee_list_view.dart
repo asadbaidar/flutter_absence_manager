@@ -11,7 +11,7 @@ class EmployeeListView extends StatelessWidget {
     return BlocBuilder<EmployeeBloc, EmployeeState>(
       builder: (context, state) {
         return state.when(
-          orElse: (_) => const CustomProgress.small().paddingAll(16),
+          orElse: (_) => const CustomProgress.medium().paddingAll(16),
           failure: (data) => CustomError(
             isFailure: data.isFailure,
             message: data.errorMessage,
