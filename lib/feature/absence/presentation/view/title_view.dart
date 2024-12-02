@@ -11,7 +11,9 @@ class TitleView extends StatelessWidget {
       title: LocaleStrings.appName,
       titleStyle: context.logo,
       titleMaxLines: 1,
-      customSubtitle: Text(DateTime.now().formatEEEEMMMMdy),
+      customSubtitle: Text(
+        DateFormat.yMMMMEEEEd(context.locale.toString()).format(DateTime.now()),
+      ),
     );
   }
 }

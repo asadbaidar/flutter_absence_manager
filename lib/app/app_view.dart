@@ -1,6 +1,7 @@
 import 'package:common/common.dart';
 import 'package:core/common/injector.dart';
 import 'package:core/core.dart';
+import 'package:core/feature/absence/absence.dart';
 import 'package:core/feature/employee/employee.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,7 @@ class AppFeatureProviders extends StatelessWidget {
     return MultiBlocProvider(
       providers: const [
         BlocProviderGet<EmployeeBloc>(lazy: false),
+        BlocProviderGet<AbsenceBloc>(),
       ],
       child: const AppView(),
     );

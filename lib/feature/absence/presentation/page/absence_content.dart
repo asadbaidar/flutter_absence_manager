@@ -1,5 +1,6 @@
 import 'package:common/common.dart';
 import 'package:core/feature/absence/absence.dart';
+import 'package:core/feature/absence/presentation/view/absence_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:locale/locale.dart';
 
@@ -15,19 +16,8 @@ class AbsenceContent extends StatelessWidget {
           customTitle: TitleView(),
           actions: [LocaleButton()],
         ),
-        body: _AbsenceBody(),
+        body: AbsenceListView(),
       ),
-    );
-  }
-}
-
-class _AbsenceBody extends StatelessWidget {
-  const _AbsenceBody();
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(LocaleStrings.absences),
     );
   }
 }

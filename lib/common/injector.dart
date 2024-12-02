@@ -1,5 +1,6 @@
 import 'package:common/common.dart';
 import 'package:core/common/common.dart';
+import 'package:core/feature/absence/absence.dart';
 import 'package:core/feature/employee/employee.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,17 @@ Future<void> initialzeDependencies() async {
     )
     ..registerFactory<EmployeeBloc>(
       () => EmployeeBloc(employeeRepository: injector())..getEmployees(),
+    )
+
+    // Absence
+    ..registerLazySingleton<AbsenceRemoteDataSource>(
+      () => AbsenceRemoteDataSourceImpl(httpClient: injector()),
+    )
+    ..registerLazySingleton<AbsenceRepository>(
+      () => AbsenceRepositoryImpl(dataSource: injector()),
+    )
+    ..registerFactory<AbsenceBloc>(
+      () => AbsenceBloc(absenceRepository: injector())..getAbsences(),
     );
 }
 
