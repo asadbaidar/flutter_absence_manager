@@ -1,7 +1,5 @@
 import 'package:common/common.dart';
 import 'package:core/common/common.dart';
-import 'package:core/feature/employee/data/data.dart';
-import 'package:core/feature/employee/domain/domain.dart';
 import 'package:core/feature/employee/employee.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,11 +36,15 @@ class BlocProviderGet<T extends StateStreamableSource<Object?>>
   const BlocProviderGet({
     super.key,
     super.child,
+    this.lazy = true,
   });
+
+  final bool lazy;
 
   @override
   Widget buildWithChild(BuildContext context, Widget? child) {
     return BlocProvider<T>(
+      lazy: lazy,
       create: (context) => injector(),
       child: child,
     );

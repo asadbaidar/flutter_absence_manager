@@ -27,7 +27,7 @@ class AppFeatureProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: const [
-        BlocProviderGet<EmployeeBloc>(),
+        BlocProviderGet<EmployeeBloc>(lazy: false),
       ],
       child: const AppView(),
     );
