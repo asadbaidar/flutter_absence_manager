@@ -1,7 +1,9 @@
 import 'package:common/common.dart';
 import 'package:core/common/injector.dart';
 import 'package:core/core.dart';
+import 'package:core/feature/employee/employee.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:locale/locale.dart';
 
 class App extends StatelessWidget {
@@ -12,8 +14,22 @@ class App extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.unfocus(),
       child: const LocaleProvider(
-        child: AppView(),
+        child: AppFeatureProviders(),
       ),
+    );
+  }
+}
+
+class AppFeatureProviders extends StatelessWidget {
+  const AppFeatureProviders({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiBlocProvider(
+      providers: const [
+        BlocProviderGet<EmployeeBloc>(),
+      ],
+      child: const AppView(),
     );
   }
 }
