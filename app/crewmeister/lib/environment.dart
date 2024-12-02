@@ -10,7 +10,7 @@ class AppEnvironment {
   static const scheme = 'com.asadbaidar.crewmeister';
 
   /// The host of the api
-  static const host = 'https://fhmcmatrhxmsmfmmwrth.supabase.co/rest/v1/rpc';
+  static const host = 'https://fhmcmatrhxmsmfmmwrth.supabase.co/rest/v1';
 
   /// The api token
   static const apiToken = '';
