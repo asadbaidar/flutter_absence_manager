@@ -10,11 +10,22 @@ class AbsenceBloc extends Cubit<AbsenceState> with SafeBloc {
 
   final AbsenceRepository absenceRepository;
 
-  Future<void> getAbsences() {
+  Future<void> getAbsences({
+    PageInfo page = const PageInfo(),
+    DataState loadingState = DataState.loading,
+  }) async {
     return when(
-      state,
-      act: () => absenceRepository.getAbsences(),
-      emit: emit,
+      state.dataState,
+      act: () => absenceRepository.getAbsences(page: page),
+      emit: (data) => emit(state.copyWith(dataState: data)),
+      loading: () => state.dataState.copyWith(
+        state: loadingState,
+        value: state.dataState.value?.copyWith(page: page),
+      ),
+      failure: (error) => state.dataState.copyWith(
+        error: error,
+        state: loadingState.toFailure(),
+      ),
     );
   }
 }

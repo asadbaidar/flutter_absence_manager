@@ -9,16 +9,21 @@ class AbsenceRemoteDataSourceImpl implements AbsenceRemoteDataSource {
   final HttpClient httpClient;
 
   @override
-  Future<PagingEntity<AbsenceEntity, Absence>> getAbsences() {
-    return httpClient
-        .post<JsonObject>(
-          path: AbsenceEndpoints.absences,
-        )
-        .then(
-          (json) => PagingEntity<AbsenceEntity, Absence>.fromJson(
-            json,
-            (e) => AbsenceEntity.fromJson(e! as JsonObject),
-          ),
-        );
+  Future<PagingEntity<AbsenceEntity, Absence>> getAbsences({
+    int? page,
+    int? pageSize,
+  }) {
+    return httpClient.post<JsonObject>(
+      path: AbsenceEndpoints.absences,
+      body: {
+        'page': page,
+        'page_size': pageSize,
+      },
+    ).then(
+      (json) => PagingEntity<AbsenceEntity, Absence>.fromJson(
+        json,
+        (e) => AbsenceEntity.fromJson(e! as JsonObject),
+      ),
+    );
   }
 }

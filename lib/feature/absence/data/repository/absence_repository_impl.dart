@@ -8,7 +8,10 @@ class AbsenceRepositoryImpl implements AbsenceRepository {
   final AbsenceRemoteDataSource dataSource;
 
   @override
-  Future<PagingList<Absence>> getAbsences() {
-    return dataSource.getAbsences().then($mapToModel);
+  Future<PagingList<Absence>> getAbsences({PageInfo? page}) {
+    return dataSource.getAbsences(
+      page: page?.current,
+      pageSize: page?.size,
+    ).then($mapToModel);
   }
 }

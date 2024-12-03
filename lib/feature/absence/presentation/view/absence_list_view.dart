@@ -10,15 +10,13 @@ class AbsenceListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AbsenceBloc, AbsenceState>(
+      buildWhen: (previous, current) => previous.dataState != current.dataState,
       builder: (context, state) {
-        return state.when(
-          orElse: (_) => const CustomProgress.medium().paddingAll(16),
-          failure: (data) => CustomError(
-            isFailure: data.isFailure,
-            message: data.errorMessage,
-            onRetry: () => context.read<AbsenceBloc>().getAbsences(),
-          ),
-          loaded: (data) => _AbsenceList(items: state.absences),
+        return Stack(
+          children: [
+            SmartLinearProgress.standard(visible: state.dataState.isLoading),
+            Expanded(child: _AbsenceList(data: state.dataState)),
+          ],
         );
       },
     );
@@ -26,17 +24,29 @@ class AbsenceListView extends StatelessWidget {
 }
 
 class _AbsenceList extends StatelessWidget {
-  const _AbsenceList({
-    required this.items,
-  });
+  const _AbsenceList({required this.data});
 
-  final List<Absence> items;
+  final AbsenceDataState data;
 
   @override
   Widget build(BuildContext context) {
-    return CustomListView(
-      itemCount: items.length,
-      itemBuilder: (context, index) => _AbsenceTile(data: items[index]),
+    return SmartDataPagingListView.builder(
+      data: data,
+      itemBuilder: (_, __, data) => _AbsenceTile(data: data!),
+      bottomSliverBuilder: (_) => [48.spaceY.sliverBox],
+      pageWithScrolling: context.isPhone,
+      onPageChange: (page) => context
+          .read<AbsenceBloc>()
+          .getAbsences(page: page, loadingState: DataState.pageLoading),
+      pageLoadingBuilder: (_) => const SmartLinearProgress.standard(),
+      pageButtonBuilder: (_, load) => PagingButton(onPressed: load),
+      pageFailureBuilder: (_, reload) => PageError(data: data, onRetry: reload),
+      replace: data.isFailure,
+      replacementBuilder: (_) => DataError(
+        data: data,
+        emptyMessage: 'No absences found',
+        onRetry: context.read<AbsenceBloc>().getAbsences,
+      ),
     );
   }
 }

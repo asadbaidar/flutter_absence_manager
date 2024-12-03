@@ -3,5 +3,8 @@ import 'package:core/feature/absence/data/data.dart';
 import 'package:core/feature/absence/domain/domain.dart';
 
 abstract class AbsenceRemoteDataSource {
-  Future<PagingEntity<AbsenceEntity, Absence>> getAbsences();
+  Future<PagingEntity<AbsenceEntity, Absence>> getAbsences({
+    int? page,
+    int? pageSize,
+  });
 }

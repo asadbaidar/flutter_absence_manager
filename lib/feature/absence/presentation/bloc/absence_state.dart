@@ -1,8 +1,14 @@
 import 'package:common/common.dart';
 import 'package:core/feature/absence/domain/domain.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-typedef AbsenceState = Data<PagingList<Absence>>;
+part 'absence_state.freezed.dart';
 
-extension AbsenceStateValues on AbsenceState {
-  List<Absence> get absences => value ?? [];
+typedef AbsenceDataState = Data<PagingList<Absence>>;
+
+@freezed
+class AbsenceState with _$AbsenceState {
+  const factory AbsenceState({
+    @Default(AbsenceDataState()) AbsenceDataState dataState,
+  }) = _AbsenceState;
 }
