@@ -10,14 +10,11 @@ class EmployeeListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EmployeeBloc, EmployeeState>(
       builder: (context, state) {
-        return state.when(
-          orElse: (_) => const CustomProgress.medium().paddingAll(16),
-          failure: (data) => CustomError(
-            isFailure: data.isFailure,
-            message: data.errorMessage,
-            onRetry: () => context.read<EmployeeBloc>().getEmployees(),
-          ),
-          loaded: (data) => _EmployeeList(items: state.employees),
+        return Stack(
+          children: [
+            SmartLinearProgress.standard(visible: state.isLoading),
+            _EmployeeList(data: state),
+          ],
         );
       },
     );
@@ -26,16 +23,24 @@ class EmployeeListView extends StatelessWidget {
 
 class _EmployeeList extends StatelessWidget {
   const _EmployeeList({
-    required this.items,
+    required this.data,
   });
 
-  final List<Employee> items;
+  final EmployeeState data;
 
   @override
   Widget build(BuildContext context) {
-    return CustomListView(
-      itemCount: items.length,
-      itemBuilder: (context, index) => _EmployeeTile(data: items[index]),
+    return SmartListView.builder(
+      physics: const ClampingScrollPhysics(),
+      items: data.value,
+      itemBuilder: (_, __, data) => _EmployeeTile(data: data!),
+      bottomSliverBuilder: (_) => [48.spaceY.sliverBox],
+      replace: data.isFailure,
+      replacementBuilder: (_) => DataError(
+        data: data,
+        emptyMessage: 'No employee found',
+        onRetry: context.read<EmployeeBloc>().getEmployees,
+      ),
     );
   }
 }
@@ -53,6 +58,7 @@ class _EmployeeTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: ListTile(
         title: Text(data.name ?? ''),
+        subtitle: Text(data.id?.toString() ?? ''),
         leading: CircleAvatar(
           backgroundColor: context.surfaceContainer,
           backgroundImage:

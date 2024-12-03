@@ -15,7 +15,7 @@ class AbsenceListView extends StatelessWidget {
         return Stack(
           children: [
             SmartLinearProgress.standard(visible: state.dataState.isLoading),
-            Expanded(child: _AbsenceList(data: state.dataState)),
+            _AbsenceList(data: state.dataState),
           ],
         );
       },
@@ -31,6 +31,7 @@ class _AbsenceList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SmartDataPagingListView.builder(
+      physics: const ClampingScrollPhysics(),
       data: data,
       itemBuilder: (_, __, data) => _AbsenceTile(data: data!),
       bottomSliverBuilder: (_) => [48.spaceY.sliverBox],
