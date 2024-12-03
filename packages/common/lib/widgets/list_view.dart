@@ -346,7 +346,7 @@ class CustomError extends StatelessWidget {
     this.message,
     this.emptyMessage,
     this.isFailure = false,
-    this.centered = true,
+    this.alignment = CrossAxisAlignment.center,
     this.action,
     this.onRetry,
   });
@@ -354,15 +354,20 @@ class CustomError extends StatelessWidget {
   final String? message;
   final String? emptyMessage;
   final bool isFailure;
-  final bool centered;
+  final CrossAxisAlignment alignment;
   final Widget? action;
   final VoidCallback? onRetry;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: centered ? Alignment.center : null,
+      alignment: alignment == CrossAxisAlignment.end
+          ? AlignmentDirectional.centerEnd
+          : alignment == CrossAxisAlignment.start
+              ? AlignmentDirectional.centerStart
+              : Alignment.center,
       child: Column(
+        crossAxisAlignment: alignment,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
@@ -371,26 +376,19 @@ class CustomError extends StatelessWidget {
                 : emptyMessage ?? LocaleStrings.emptyMessage(),
             style: context.bodyMedium
                 ?.withColor(context.onSurfaceVariant.withOpacity(0.6)),
-            textAlign: centered ? TextAlign.center : null,
+            textAlign: alignment == CrossAxisAlignment.end
+                ? TextAlign.end
+                : alignment == CrossAxisAlignment.start
+                    ? TextAlign.start
+                    : TextAlign.center,
           ),
           if (onRetry != null && isFailure)
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: CustomInkWell(
-                onTap: onRetry,
-                borderRadius: 6,
-                borderWidth: 1,
-                borderColor: context.primary,
-                splashColor: context.primary.withOpacity(0.2),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 6,
-                ),
-                child: Text(
-                  LocaleStrings.retry,
-                  style: context.bodyMedium?.primary(context),
-                ),
-              ),
+            CustomOutlinedButton(
+              onPressed: onRetry,
+              borderColor: context.primary,
+              text: LocaleStrings.retry,
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              margin: const EdgeInsets.only(top: 16),
             ),
           if (action != null && !isFailure)
             Padding(
@@ -401,4 +399,65 @@ class CustomError extends StatelessWidget {
       ),
     );
   }
+}
+
+class PagingButton extends StatelessWidget {
+  const PagingButton({
+    super.key,
+    required this.onPressed,
+  });
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) => Align(
+        alignment: AlignmentDirectional.centerEnd,
+        child: CustomOutlinedButton(
+          text: 'Show More',
+          onPressed: onPressed,
+          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        ),
+      );
+}
+
+class DataError<T> extends StatelessWidget {
+  const DataError({
+    super.key,
+    required this.data,
+    this.emptyMessage,
+    this.onRetry,
+  });
+
+  final Data<T> data;
+  final String? emptyMessage;
+  final VoidCallback? onRetry;
+
+  @override
+  Widget build(BuildContext context) => CustomError(
+        isFailure: data.isFailure,
+        message: data.errorMessage,
+        emptyMessage: emptyMessage,
+        onRetry: onRetry,
+      );
+}
+
+class PageError<T> extends StatelessWidget {
+  const PageError({
+    super.key,
+    required this.data,
+    this.onRetry,
+  });
+
+  final Data<T> data;
+  final VoidCallback? onRetry;
+
+  @override
+  Widget build(BuildContext context) => CustomError(
+        isFailure: data.isPageFailure,
+        message: data.errorMessage,
+        onRetry: onRetry,
+        alignment: context.isPhone
+            ? CrossAxisAlignment.center
+            : CrossAxisAlignment.end,
+      ).paddingSymmetric(vertical: 8, horizontal: 16);
 }
