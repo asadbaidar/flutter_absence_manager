@@ -18,7 +18,7 @@ dependencies:
     path: ../locale
 
   # owned packages
-  smart_flutter_utils: ^1.0.4
+  smart_flutter_utils: ^1.0.5
   smart_flutter_widgets: ^1.0.2
   smart_http: ^1.0.6
 

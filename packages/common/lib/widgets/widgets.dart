@@ -5,6 +5,5 @@ export 'bottom_sheet.dart';
 export 'bottom_view.dart';
 export 'elevated_button.dart';
 export 'ink_well.dart';
-export 'lifecycle_observer.dart';
 export 'list_view.dart';
 export 'outlined_button.dart';
