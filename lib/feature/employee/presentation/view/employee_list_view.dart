@@ -35,7 +35,7 @@ class _EmployeeList extends StatelessWidget {
       items: data.value,
       itemBuilder: (_, __, data) => _EmployeeTile(data: data!),
       bottomSliverBuilder: (_) => [48.spaceY.sliverBox],
-      replace: data.isFailure,
+      replace: data.isFailureOrEmpty,
       replacementBuilder: (_) => DataError(
         data: data,
         emptyMessage: 'No employee found',

@@ -35,17 +35,17 @@ class _AbsenceList extends StatelessWidget {
       data: data,
       itemBuilder: (_, __, data) => _AbsenceTile(data: data!),
       bottomSliverBuilder: (_) => [48.spaceY.sliverBox],
+      pageLoadingBuilder: (_) => const SmartLinearProgress.standard(),
+      pageButtonBuilder: (_, load) => PagingButton(onPressed: load),
+      pageFailureBuilder: (_, reload) => PageError(data: data, onRetry: reload),
       pageWithScrolling: context.isPhone,
       onPageChange: (page) => context
           .read<AbsenceBloc>()
           .getAbsences(page: page, loadingState: DataState.pageLoading),
-      pageLoadingBuilder: (_) => const SmartLinearProgress.standard(),
-      pageButtonBuilder: (_, load) => PagingButton(onPressed: load),
-      pageFailureBuilder: (_, reload) => PageError(data: data, onRetry: reload),
-      replace: data.isFailure,
+      replace: data.isFailureOrEmpty,
       replacementBuilder: (_) => DataError(
         data: data,
-        emptyMessage: 'No absences found',
+        emptyMessage: 'No absence found',
         onRetry: context.read<AbsenceBloc>().getAbsences,
       ),
     );
