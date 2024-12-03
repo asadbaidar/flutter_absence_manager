@@ -16,9 +16,8 @@ class TabState extends Equatable {
 }
 
 enum TabItem {
-  absence(AssetIcons.home),
-  blank(AssetIcons.blank),
-  employee(AssetIcons.hub),
+  absence(AssetIcons.hub),
+  employee(AssetIcons.group),
   ;
 
   const TabItem(this.icon);
@@ -31,7 +30,6 @@ enum TabItem {
 
   static const List<TabItem> items = [
     absence,
-    // blank,
     employee,
   ];
 }

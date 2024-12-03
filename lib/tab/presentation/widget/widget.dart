@@ -1,2 +1,2 @@
 export 'nav_bar.dart';
-export 'tab_item.dart';
+export 'nav_item.dart';

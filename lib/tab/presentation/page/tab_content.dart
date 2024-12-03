@@ -31,19 +31,44 @@ class _TabScafold extends StatelessWidget {
       child: BlocBuilder<TabBloc, TabState>(
         builder: (context, state) {
           return Scaffold(
-            body: _TabBody(state.currentTab),
-            bottomNavigationBar: BottomNavBar(
-              currentTab: state.currentTab,
-              onSelect: (tab) => context
-                  .read<TabBloc>()
-                  .changeTab(tab, router: context.router),
-            ),
-            floatingActionButton: const CreateTaskButton(),
+            body: _SideNavBody(state.currentTab),
+            bottomNavigationBar: context.isMiniOrSmallScreen
+                ? BottomNavBar(
+                    currentTab: state.currentTab,
+                    onSelect: context.changeTab,
+                  )
+                : null,
+            floatingActionButton: context.isMiniOrSmallScreen
+                ? const RequestAbsenceButton()
+                : null,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
           );
         },
       ),
+    );
+  }
+}
+
+class _SideNavBody extends StatelessWidget {
+  const _SideNavBody(this.currentTab);
+
+  final TabItem currentTab;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        if (context.isMediumOrLargeScreen)
+          SideNavBar(
+            currentTab: currentTab,
+            onSelect: context.changeTab,
+            leading: const RequestAbsenceButton(),
+          ),
+        Expanded(
+          child: _TabBody(currentTab),
+        ),
+      ],
     );
   }
 }
@@ -66,8 +91,8 @@ class _TabBody extends StatelessWidget {
   }
 }
 
-class CreateTaskButton extends StatelessWidget {
-  const CreateTaskButton({
+class RequestAbsenceButton extends StatelessWidget {
+  const RequestAbsenceButton({
     super.key,
   });
 
@@ -78,4 +103,8 @@ class CreateTaskButton extends StatelessWidget {
       child: const Icon(Icons.add),
     );
   }
+}
+
+extension on BuildContext {
+  void changeTab(TabItem tab) => read<TabBloc>().changeTab(tab, router: router);
 }
