@@ -43,6 +43,7 @@ Future<void> initialzeDependencies() async {
     );
 }
 
+/// A provider that injects a [Bloc] instance from the [GetIt] factory.
 class BlocProviderGet<T extends StateStreamableSource<Object?>>
     extends SingleChildStatelessWidget {
   const BlocProviderGet({

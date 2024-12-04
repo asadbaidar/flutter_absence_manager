@@ -1,4 +1,4 @@
-/// CXCore library
+/// Core library
 library core;
 
 export 'package:common/constants/environment.dart';

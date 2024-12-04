@@ -52,7 +52,6 @@ class AppView extends StatelessWidget {
       routerDelegate: router.routerDelegate,
       theme: AppTheme.light().data(context),
       darkTheme: AppTheme.dark().data(context),
-      themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       builder: (context, child) => MediaQuery(
         data: context.mediaQuery.copyWith(

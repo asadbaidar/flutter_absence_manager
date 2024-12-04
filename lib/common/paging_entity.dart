@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'paging_entity.g.dart';
 
+/// A generic entity that represents a list of items with paging information.
 @JsonSerializable(genericArgumentFactories: true)
 class PagingEntity<E extends ToModel<M>, M> implements ToModel<PagingList<M>> {
   PagingEntity({
