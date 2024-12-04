@@ -13,7 +13,7 @@ class AppEnvironment {
   static const host = 'https://fhmcmatrhxmsmfmmwrth.supabase.co/rest/v1';
 
   /// The api token
-  static const apiToken = '';
+  static const apiToken = 'API_KEY_HERE';
 
   /// The production environment
   static const prod = Environment(
