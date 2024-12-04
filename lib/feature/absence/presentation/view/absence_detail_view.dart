@@ -36,15 +36,15 @@ class AbsenceDetailView extends StatelessWidget {
         ),
         CustomTextField(
           label: LocaleStrings.requestedAt,
-          value: data.createdAt?.formatEEEEMMMMdy,
+          value: data.createdAt?.formatEEEEMMMMdyHma,
         ),
         CustomTextField(
           label: LocaleStrings.rejectedAt,
-          value: data.rejectedAt?.formatEEEEMMMMdy,
+          value: data.rejectedAt?.formatEEEEMMMMdyHma,
         ),
         CustomTextField(
           label: LocaleStrings.confirmedAt,
-          value: data.confirmedAt?.formatEEEEMMMMdy,
+          value: data.confirmedAt?.formatEEEEMMMMdyHma,
         ),
         CustomTextField(
           label: LocaleStrings.requesteeNote,
