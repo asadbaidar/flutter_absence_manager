@@ -22,6 +22,7 @@ Crewmeister absence manager using supabase as backend.
 - [x] `Supabase` for backend.
 - [x] Responsive material design for various screen sizes.
 - [x] Clean architecture with Data, Domain, and Presentation layers.
+- [x] Deployed on Github Pages [here](https://asadbaidar.github.io/flutter_absence_manager).
 
 ## Pre-requisites
 Make sure you have following or latest flutter/dart sdk installed on your machine. If not, follow the instructions [here](https://flutter.dev/docs/get-started/install).
