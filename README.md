@@ -34,3 +34,75 @@ To run test coverage and generate report, lcov is required. Install it before ru
 ```sh
 $ sh test_coverage.sh
 ```
+
+# Project Structure
+```
+├── app
+│   └── crewmeister
+│       ├── android
+│       ├── ios
+│       ├── web
+│       └── lib
+│           ├── environment.dart
+│           ├── main.dart
+│           ├── main_dev.dart
+│           ├── main_prod.dart
+│           ├── main_qa.dart
+│           └── main_stage.dart
+├── lib
+│   ├── app
+│   │   └── app_view.dart
+│   ├── common
+│   │   ├── injector.dart
+│   │   ├── launcher.dart
+│   │   └── router
+│   ├── feature
+│   │   ├── absence
+│   │   │   ├── data
+│   │   │   │   ├── entity
+│   │   │   │   ├── remote
+│   │   │   │   └── repository
+│   │   │   ├── domain
+│   │   │   │   ├── model
+│   │   │   │   └── repository
+│   │   │   └── presentation
+│   │   │       ├── bloc
+│   │   │       ├── listener
+│   │   │       ├── page
+│   │   │       ├── view
+│   │   │       └── widget
+│   │   └── employee
+│   │       ├── data
+│   │       │   ├── entity
+│   │       │   ├── remote
+│   │       │   └── repository
+│   │       ├── domain
+│   │       │   ├── model
+│   │       │   └── repository
+│   │       └── presentation
+│   │           ├── bloc
+│   │           ├── page
+│   │           ├── view
+│   │           └── widget
+│   └── tab
+│       └── presentation
+│           ├── bloc
+│           ├── page
+│           ├── presentation.dart
+│           ├── view
+│           └── widget
+└── packages
+    ├── common
+    │   ├── assets
+    │   └── lib
+    │       ├── constants
+    │       ├── theme
+    │       ├── utils
+    │       └── widgets
+    └── locale
+        ├── lib
+        │   └──locale.dart
+        └── translations
+            ├── de-DE.json
+            └── en-US.json
+```
