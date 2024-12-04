@@ -52,6 +52,7 @@ $ flutter run --flavor dev --target lib/main_dev.dart
 4. To build the binaries, use the following commands:
 ```sh
 $ cd app/crewmeister
+$ flutter build web --base-href /flutter_absence_manager/
 $ flutter build apk --flavor dev --target lib/main_dev.dart
 $ flutter build appbundle --flavor dev --target lib/main_dev.dart
 $ flutter build ipa --flavor dev --target lib/main_dev.dart
