@@ -1,6 +1,27 @@
 # Crewmeister | Absence Manager
 
-Crewmeister absence manager.
+Crewmeister absence manager using supabase as backend.
+
+## Features
+- [x] List of absences including the names of the employees.
+- [x] 10 absences per page, with the ability to paginate.
+- [x] Total number of absences.
+- [x] For each absence, details include: Member name, Type of absence, Period, Member note (when available), Status ('Requested', 'Confirmed' or 'Rejected'), Admitter note (when available)
+- [x] Filter absences by type.
+- [x] Filter absences by date.
+- [x] Loading state until the list is available.
+- [x] Error state if the list is unavailable.
+- [x] Empty state if there are no results.
+- [x] BLoC pattern for state management.
+- [x] Dependency injection using `get_it`.
+- [x] Localization for `English` and `Deutsch` using `easy_localization`.
+- [x] Unit tests for Entity, DataSource, Model, Repository, and Bloc.
+- [x] Multi-flavor setup for `dev`, `qa`, `stage`, and `prod` environments.
+- [x] `GoRouter` for navigation.
+- [x] `Dio` for network calls.
+- [x] `Supabase` for backend.
+- [x] Responsive material design for various screen sizes.
+- [x] Clean architecture with Data, Domain, and Presentation layers.
 
 ## Pre-requisites
 Make sure you have following or latest flutter/dart sdk installed on your machine. If not, follow the instructions [here](https://flutter.dev/docs/get-started/install).
@@ -9,21 +30,25 @@ Make sure you have following or latest flutter/dart sdk installed on your machin
 `dart: 3.5.4`
 
 ## Setup
-1. To setup the project, use the following commands:
+1. Add supabase `apikey` in `app/crewmeister/lib/environment.dart` file.
+
+```dart
+  static const apiToken = 'SUPABASE_API_KEY';
+```
+
+2. To setup the project, use the following commands:
 ```sh
 $ flutter pub get
 $ dart run build_runner build --delete-conflicting-outputs
 ```
 
-2. Put supabase `apikey` in `apiToken` at `app/crewmeister/lib/environment.dart` file.
-
-2. To run the app, use the following commands:
+3. To run the app, use the following commands:
 ```sh
 $ cd app/crewmeister
 $ flutter run --flavor dev --target lib/main_dev.dart
 ```
 
-3. To build the binaries, use the following commands:
+4. To build the binaries, use the following commands:
 ```sh
 $ cd app/crewmeister
 $ flutter build apk --flavor dev --target lib/main_dev.dart
