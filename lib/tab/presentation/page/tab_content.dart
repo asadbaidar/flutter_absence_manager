@@ -5,8 +5,12 @@ import 'package:core/tab/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TabView extends StatelessWidget {
-  const TabView({super.key});
+/// The content of the tabs, pages and navigation bar.
+///
+/// Naivgation bar is placed at the bottom of the small screens
+/// and on the side of the large screens.
+class TabContent extends StatelessWidget {
+  const TabContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,15 +35,16 @@ class _TabScafold extends StatelessWidget {
       child: BlocBuilder<TabBloc, TabState>(
         builder: (context, state) {
           return Scaffold(
+            appBar: const TitleBar(),
             body: _SideNavBody(state.currentTab),
-            bottomNavigationBar: context.isMiniOrSmallScreen
+            bottomNavigationBar: context.isBelowSmallScreen
                 ? BottomNavBar(
                     currentTab: state.currentTab,
                     onSelect: context.changeTab,
                   )
                 : null,
-            floatingActionButton: context.isMiniOrSmallScreen
-                ? const RequestAbsenceButton()
+            floatingActionButton: context.isBelowSmallScreen
+                ? const AbsenceRequestButton()
                 : null,
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
@@ -59,11 +64,11 @@ class _SideNavBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (context.isMediumOrLargeScreen)
+        if (context.isAboveSmallScreen)
           SideNavBar(
             currentTab: currentTab,
             onSelect: context.changeTab,
-            leading: const RequestAbsenceButton(),
+            action: const AbsenceRequestButton(),
           ),
         Expanded(
           child: _TabBody(currentTab),
@@ -91,20 +96,7 @@ class _TabBody extends StatelessWidget {
   }
 }
 
-class RequestAbsenceButton extends StatelessWidget {
-  const RequestAbsenceButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: () {},
-      child: const Icon(Icons.add),
-    );
-  }
-}
-
 extension on BuildContext {
+  /// A private method to change the tab
   void changeTab(TabItem tab) => read<TabBloc>().changeTab(tab, router: router);
 }

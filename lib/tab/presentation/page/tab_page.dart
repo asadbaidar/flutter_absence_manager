@@ -3,6 +3,7 @@ import 'package:core/tab/tab.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/// A root page that displays the tabs and their containers.
 class TabPage extends StatelessWidget {
   const TabPage({
     super.key,
@@ -23,13 +24,15 @@ class TabPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TabBloc(initialTab: _tab),
-      child: const TabView(),
+      child: const TabContent(),
     );
   }
 }
 
 extension TabContext on BuildContext {
+  /// Returns the current tab.
   TabItem get currentTab => read<TabBloc>().state.currentTab;
 
+  /// Returns the new tab by extracting from the route path parameters.
   TabItem? get newTab => TabItem.fromName(routePathParameters['page']);
 }
