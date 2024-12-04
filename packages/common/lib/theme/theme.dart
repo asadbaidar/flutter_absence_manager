@@ -1,4 +1,5 @@
 import 'package:common/common.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -43,6 +44,9 @@ class AppTheme {
       scaffoldBackgroundColor: colorScheme.surface,
       canvasColor: colorScheme.surface,
       appBarTheme: AppBarTheme(
+        centerTitle: defaultTargetPlatform.isPhoneOrTablet,
+        scrolledUnderElevation: 0,
+        backgroundColor: colorScheme.surfaceContainer,
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarBrightness: colorScheme.brightness,
@@ -50,6 +54,13 @@ class AppTheme {
           systemNavigationBarColor: colorScheme.surface,
           systemNavigationBarIconBrightness: colorScheme.brightness,
         ),
+      ),
+      dialogTheme: mediaQuery.dialogTheme,
+      dividerTheme: const DividerThemeData(
+        space: 0,
+        thickness: 0,
+        indent: 16,
+        endIndent: 16,
       ),
       snackBarTheme: const SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
@@ -83,13 +94,6 @@ extension AppThemeContext on BuildContext {
   SystemUiOverlayStyle? get systemOverlayStyle =>
       appBarTheme.systemOverlayStyle;
 
-  SystemUiOverlayStyle? get transparentBars => systemOverlayStyle?.copyWith(
-        statusBarBrightness: theme.brightness.inverse,
-        statusBarIconBrightness: theme.brightness,
-        systemNavigationBarColor: scrim,
-        systemNavigationBarIconBrightness: theme.brightness,
-      );
-
   SystemUiOverlayStyle? get lightStatusBar => systemOverlayStyle?.copyWith(
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.dark,
@@ -100,12 +104,6 @@ extension AppThemeContext on BuildContext {
         statusBarIconBrightness: Brightness.light,
       );
 
-  ThemeData get transparentBarsTheme => theme.copyWith(
-        appBarTheme: appBarTheme.copyWith(
-          systemOverlayStyle: transparentBars,
-        ),
-      );
-
   SystemUiOverlayStyle? get bottomNavigationBar => systemOverlayStyle?.copyWith(
         systemNavigationBarColor: surfaceContainer,
       );
@@ -114,5 +112,29 @@ extension AppThemeContext on BuildContext {
         appBarTheme: appBarTheme.copyWith(
           systemOverlayStyle: bottomNavigationBar,
         ),
+      );
+}
+
+extension DialogThemeMediaQuery on MediaQueryData {
+  DialogTheme get dialogTheme => DialogTheme(
+        clipBehavior: Clip.antiAlias,
+        insetPadding: isBelowSmallScreen
+            ? EdgeInsets.zero
+            : EdgeInsets.symmetric(
+                horizontal:
+                    (size.width * 0.15) * (isAboveLargeScreen ? 1.5 : 0.8),
+                vertical: size.height * 0.07,
+              ),
+        shape: RoundedRectangleBorder(
+          borderRadius: isBelowSmallScreen
+              ? BorderRadius.zero
+              : BorderRadius.circular(16),
+        ),
+      );
+}
+
+extension DialogThemeContext on BuildContext {
+  ThemeData get dialogTheme => theme.copyWith(
+        dialogTheme: mediaQuery.dialogTheme,
       );
 }
