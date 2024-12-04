@@ -15,6 +15,8 @@ $ flutter pub get
 $ dart run build_runner build --delete-conflicting-outputs
 ```
 
+2. Put supabase `apikey` in `apiToken` at `app/crewmeister/lib/environment.dart` file.
+
 2. To run the app, use the following commands:
 ```sh
 $ cd app/crewmeister
