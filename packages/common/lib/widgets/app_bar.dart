@@ -1,7 +1,6 @@
 import 'package:common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:go_router/go_router.dart';
 import 'package:locale/locale.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -143,182 +142,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       pageRoute(context)?.fullscreenDialog ?? false;
 }
 
-class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({
-    super.key,
-    this.color,
-    this.onPressed,
-  });
-
-  final Color? color;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return _PopButton(
-      icon: AssetIcons.arrow_back,
-      tooltip: MaterialLocalizations.of(context).backButtonTooltip,
-      color: color,
-      onPressed: onPressed,
-    );
-  }
-}
-
-class CustomCloseButton extends StatelessWidget {
-  const CustomCloseButton({
-    super.key,
-    this.color,
-    this.onPressed,
-  });
-
-  final Color? color;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return _PopButton(
-      icon: AssetIcons.cross_mark,
-      tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
-      color: color,
-      onPressed: onPressed,
-    );
-  }
-}
-
-class _PopButton extends StatelessWidget {
-  const _PopButton({
-    required this.icon,
-    this.color,
-    this.tooltip,
-    this.onPressed,
-  });
-
-  final AssetIcons icon;
-  final Color? color;
-  final String? tooltip;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: AlignmentDirectional.center,
-      child: CustomIconButton(
-        tooltip: tooltip,
-        onPressed: onPressed ??
-            () => context
-              ..unfocus()
-              ..pop(),
-        icon: AssetIcon.monotone(icon),
-        color: color,
-      ),
-    );
-  }
-}
-
-class CustomDoneAction extends StatelessWidget {
-  const CustomDoneAction({
-    super.key,
-    this.enabled = true,
-    this.onPressed,
-  });
-
-  final bool enabled;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomActionButton.bold(
-      enabled: enabled,
-      text: LocaleStrings.done,
-      onPressed: onPressed ??
-          () => context
-            ..unfocus()
-            ..pop(),
-    );
-  }
-}
-
-class CustomCancelAction extends StatelessWidget {
-  const CustomCancelAction({
-    super.key,
-    this.enabled = true,
-    this.onPressed,
-  });
-
-  final bool enabled;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomActionButton(
-      enabled: enabled,
-      text: LocaleStrings.cancel,
-      onPressed: onPressed ??
-          () => context
-            ..unfocus()
-            ..pop(),
-    );
-  }
-}
-
-class CustomApplyButton extends StatelessWidget {
-  const CustomApplyButton({
-    super.key,
-    this.enabled = true,
-    this.width,
-    this.padding,
-    this.onPressed,
-  });
-
-  final bool enabled;
-  final double? width;
-  final EdgeInsetsGeometry? padding;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomElevatedButton(
-      enabled: enabled,
-      text: LocaleStrings.apply,
-      width: width,
-      padding: padding,
-      onPressed: onPressed ??
-          () => context
-            ..unfocus()
-            ..pop(),
-    );
-  }
-}
-
-class CustomCancelButton extends StatelessWidget {
-  const CustomCancelButton({
-    super.key,
-    this.enabled = true,
-    this.width,
-    this.padding,
-    this.onPressed,
-  });
-
-  final bool enabled;
-  final double? width;
-  final EdgeInsetsGeometry? padding;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomOutlinedButton(
-      enabled: enabled,
-      text: LocaleStrings.cancel,
-      width: width,
-      padding: padding,
-      onPressed: onPressed ??
-          () => context
-            ..unfocus()
-            ..pop(),
-    );
-  }
-}
-
 class WindowTitle extends StatelessWidget {
   const WindowTitle({
     super.key,
@@ -333,7 +156,7 @@ class WindowTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Title(
       title: '${LocaleStrings.appName} | $title',
-      color: context.theme.appBarTheme.backgroundColor ?? context.primary,
+      color: context.primary,
       child: child,
     );
   }

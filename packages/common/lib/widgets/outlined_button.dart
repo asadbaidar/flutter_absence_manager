@@ -60,6 +60,7 @@ class CustomOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final enabled = this.enabled && onPressed != null;
     return Container(
       margin: margin,
       constraints: BoxConstraints(
@@ -76,7 +77,8 @@ class CustomOutlinedButton extends StatelessWidget {
           padding: padding ??
               const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           side: BorderSide(
-            color: enabled ? borderColor ?? context.primary : context.tertiary,
+            color:
+                enabled ? borderColor ?? context.primary : context.surfaceDim,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
@@ -84,9 +86,7 @@ class CustomOutlinedButton extends StatelessWidget {
           backgroundColor: backgroundColor ?? context.surface,
           foregroundColor: foregroundColor ?? context.primary,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          textStyle: textStyle ?? context.label1,
-          disabledBackgroundColor: context.tertiaryContainer,
-          disabledForegroundColor: context.onTertiaryContainer,
+          textStyle: textStyle ?? context.labelLarge,
           elevation: elevation,
         ),
         child: Row(

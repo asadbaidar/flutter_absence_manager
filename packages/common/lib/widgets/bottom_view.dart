@@ -4,11 +4,13 @@ class BottomView extends StatelessWidget {
   const BottomView({
     this.children,
     this.padding = const EdgeInsets.symmetric(horizontal: 40, vertical: 16),
+    this.direction = Axis.horizontal,
     super.key,
   });
 
   final List<Widget>? children;
   final EdgeInsets padding;
+  final Axis direction;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,9 @@ class BottomView extends StatelessWidget {
           if (children != null)
             Padding(
               padding: padding,
-              child: Column(
+              child: Flex(
+                mainAxisAlignment: MainAxisAlignment.end,
+                direction: direction,
                 children: children!,
               ),
             ),

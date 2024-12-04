@@ -57,6 +57,7 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final enabled = this.enabled && onPressed != null;
     return Container(
       margin: margin,
       constraints: BoxConstraints(
@@ -78,9 +79,7 @@ class CustomElevatedButton extends StatelessWidget {
           backgroundColor: backgroundColor ?? context.primary,
           foregroundColor: foregroundColor ?? context.onPrimary,
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          textStyle: textStyle ?? context.label1,
-          disabledBackgroundColor: context.tertiaryContainer,
-          disabledForegroundColor: context.onPrimary,
+          textStyle: textStyle ?? context.labelLarge,
           elevation: elevation,
         ),
         child: Row(
