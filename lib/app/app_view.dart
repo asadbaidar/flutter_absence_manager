@@ -1,5 +1,4 @@
 import 'package:common/common.dart';
-import 'package:core/common/injector.dart';
 import 'package:core/core.dart';
 import 'package:core/feature/absence/absence.dart';
 import 'package:core/feature/employee/employee.dart';
