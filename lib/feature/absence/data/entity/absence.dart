@@ -34,7 +34,7 @@ class AbsenceEntity implements ToModel<Absence> {
         confirmedAt: model.confirmedAt?.toIso8601String(),
         startDate: model.startDate?.toIso8601String(),
         endDate: model.endDate?.toIso8601String(),
-        type: model.type,
+        type: model.type?.name,
         memberNote: model.memberNote,
         admitterNote: model.admitterNote,
       );
@@ -65,7 +65,7 @@ class AbsenceEntity implements ToModel<Absence> {
         confirmedAt: confirmedAt?.mapTo(DateTime.tryParse),
         startDate: startDate?.mapTo(DateTime.tryParse),
         endDate: endDate?.mapTo(DateTime.tryParse),
-        type: type,
+        type: type?.mapTo(AbsenceType.fromString),
         memberNote: memberNote,
         admitterNote: admitterNote,
       );

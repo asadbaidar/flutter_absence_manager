@@ -6,5 +6,8 @@ abstract class AbsenceRemoteDataSource {
   Future<PagingEntity<AbsenceEntity, Absence>> getAbsences({
     int? page,
     int? pageSize,
+    String? type,
+    String? startDate,
+    String? endDate,
   });
 }
