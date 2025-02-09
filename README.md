@@ -27,7 +27,7 @@ Crewmeister absence manager using supabase as backend.
 ## Pre-requisites
 Make sure you have following or latest flutter/dart sdk installed on your machine. If not, follow the instructions [here](https://flutter.dev/docs/get-started/install).
 
-`flutter: 2.24.5`
+`flutter: 3.24.5`
 `dart: 3.5.4`
 
 ## Setup
